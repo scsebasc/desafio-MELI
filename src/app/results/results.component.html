@@ -1,0 +1,39 @@
+<mat-grid-list cols="2">
+    <mat-grid-tile>
+        Imagen de muestra
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-card>
+            <h1>Bienvenido a Banco App</h1>
+            <form class="form" [formGroup]="formLogin">
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Ingresa tu RUT" formControlName="dni" validateDni formLogin required>
+                    <mat-error *ngIf="formLogin.controls['dni'].hasError('required')">
+                        Debes ingresar un <span>RUT válido</span> para continuar
+                    </mat-error>
+                    <mat-error
+                        *ngIf="!formLogin.controls['dni'].hasError('required') && formLogin.controls['dni'].hasError('invalid') && formLogin.controls['dni'].value !== ''">
+                        El <span>RUT</span> ingresado no es válido
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Ingrese su contraseña" formControlName="password" [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="formLogin.controls['password'].hasError('required')">
+                        Debes ingresar su contraseña
+                    </mat-error>
+                    <mat-error *ngIf="formLogin.controls['password'].hasError('validPass')">
+                        El formato de <span>serie</span> ingresado no es válido
+                    </mat-error>
+                </mat-form-field>
+                <button mat-button class="btn green"
+                    [disabled]="!formLogin.valid" (click)="signInUser()">Ingresar</button>
+            </form>
+            <div class="sign-up">
+                <label> Crea una cuenta </label><a routerLink="/sign-up" routerLinkActive="active">aquí</a>
+            </div>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

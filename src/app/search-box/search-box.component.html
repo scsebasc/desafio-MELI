@@ -1,0 +1,28 @@
+<mat-card>
+    <mat-card-header>
+        <div class="user-info">
+            <div mat-card-avatar class=""></div>
+            <mat-card-title>{{firstName}} {{lastName}}, {{dni}}</mat-card-title>
+            <mat-card-subtitle>N° de cuenta {{accountNumber}}</mat-card-subtitle>
+            <mat-card-subtitle>Monto total ${{accountAmount}}</mat-card-subtitle>
+        </div>
+        <div class="transfer">
+            <ul>
+                <li>
+                    <a (click)="logout()">Cerrar sesion</a>
+                </li>
+                <li>
+                    <a routerLink="/transfer" routerLinkActive="active">Transferir aquí</a>
+                </li>
+            </ul>
+        </div>
+    </mat-card-header>
+</mat-card>
+<mat-card *ngFor="let history of accountHistory">
+    <mat-card-header>
+        <mat-card-title>Origen: {{history.origin}}</mat-card-title>
+        <mat-card-subtitle>Monto inicial ${{history.before_amount}}</mat-card-subtitle>
+        <mat-card-subtitle>Monto final ${{history.after_amount}}</mat-card-subtitle>
+        <mat-card-subtitle>Fecha {{history.date}}</mat-card-subtitle>
+    </mat-card-header>
+</mat-card>
