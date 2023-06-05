@@ -44,14 +44,13 @@ Este proyecto sirve como metodo de medicion de conocimientos para ingresar a com
 
 _Principales tecnologias usadas en el proyecto_
 
-- **Node** version 
-- **npm** version
-- **Angular** version
-- **Jest** version
+- **Node** version 18.16.0
+- **npm** version 9.5.1
+- **Angular** version 14
 
 ### Dependencias
 
-- **Firebase** version
+- **Firebase** version 9.0.0
 
 ---
 
