@@ -6,10 +6,10 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { AuthGuard } from 'src/utils/guard/auth.guard';
 
 const routes: Routes = [
-  { path: 'search', component: SearchBoxComponent},
-  { path: 'results', component: ResultsComponent},
-  { path: 'detail', component: DetailsComponent, canActivate: [AuthGuard]},
-  { path: '',   redirectTo: '/search', pathMatch: 'full' }
+  { path: '', component: SearchBoxComponent},
+  { path: 'items', component: ResultsComponent},
+  { path: 'items/:id', component: DetailsComponent, canActivate: [AuthGuard]},
+  { path: '',   redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({

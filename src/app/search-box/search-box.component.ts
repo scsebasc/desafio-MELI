@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AccountService } from 'src/utils/services/account.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-box',
@@ -9,42 +8,21 @@ import { AccountService } from 'src/utils/services/account.service';
 })
 export class SearchBoxComponent implements OnInit {
 
-  firstName: string = '';
-  lastName: string = '';
-  dni: string = '';
-  accountNumber: string = '';
-  accountAmount: string = '';
-  userAccounts: any = [];
-  accountHistory: any = [];
+  searchInput: string = '';
 
-  constructor(private accountService: AccountService, private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.accountService.getUserAccount().subscribe((res) => {
-      console.log(res);
-      this.firstName = res.firstName;
-      this.lastName = res.lastName;
-      this.dni = res.dni;
-      this.accountNumber = res.accounts[0].accountNumber;
-      this.accountAmount = res.accounts[0].amount;
-      this.userAccounts = res.accounts;
-      sessionStorage.setItem('amount', this.accountAmount);
-      sessionStorage.setItem('accountNumber', this.accountNumber);
-      this.getAccountHistory();
-    });
-
   }
 
-  getAccountHistory() {
-    this.accountService.getAccountHistory(this.accountNumber).subscribe((res) => {
-      console.log(res);
-      this.accountHistory = res;
+  async onClickSeach() {
+    console.log(`Hola ${this.searchInput}`);
+    await this.router.navigate(['items'], {
+      queryParams: {
+        search: this.searchInput
+      }
     });
-  }
-
-  logout() {
-    sessionStorage.clear();
-    this.router.navigate(['login']);
+    location.reload()
   }
 
 }

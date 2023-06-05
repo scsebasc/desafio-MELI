@@ -1,28 +1,24 @@
-<mat-card>
-    <mat-card-header>
-        <div class="user-info">
-            <div mat-card-avatar class=""></div>
-            <mat-card-title>{{firstName}} {{lastName}}, {{dni}}</mat-card-title>
-            <mat-card-subtitle>N° de cuenta {{accountNumber}}</mat-card-subtitle>
-            <mat-card-subtitle>Monto total ${{accountAmount}}</mat-card-subtitle>
-        </div>
-        <div class="transfer">
-            <ul>
-                <li>
-                    <a (click)="logout()">Cerrar sesion</a>
-                </li>
-                <li>
-                    <a routerLink="/transfer" routerLinkActive="active">Transferir aquí</a>
-                </li>
-            </ul>
-        </div>
-    </mat-card-header>
-</mat-card>
-<mat-card *ngFor="let history of accountHistory">
-    <mat-card-header>
-        <mat-card-title>Origen: {{history.origin}}</mat-card-title>
-        <mat-card-subtitle>Monto inicial ${{history.before_amount}}</mat-card-subtitle>
-        <mat-card-subtitle>Monto final ${{history.after_amount}}</mat-card-subtitle>
-        <mat-card-subtitle>Fecha {{history.date}}</mat-card-subtitle>
-    </mat-card-header>
-</mat-card>
+<mat-card-header>
+  <header role="banner" data-siteid="MLC" class="nav-header nav-header-plus ui-navigation-v2">
+    <div class="nav-bounds nav-bounds-with-cart nav-bounds-with-cp">
+      <div class="nav-header-plus-logo nav-area nav-top-area nav-left-area">
+        <a id="nav-skip-to-main-content" role="button" href="/" class="nav-skip-to-main-content"
+          aria-label="Ir al contenido principal"><span class="nav-skip-to-main-content__content">Ir al contenido
+            principal</span></a><a class="nav-logo" href="/">Mercado Libre Chile - Donde comprar y
+          vender de todo</a>
+      </div>
+      <div class="nav-area nav-top-area nav-center-area">
+        <form class="nav-search" (ngSubmit)="onClickSeach()">
+          <label class="nav-header-visually-hidden" for="nav-search-input">Ingresa lo que quieras
+            encontrar</label>
+          <input [(ngModel)]="searchInput" type="text" class="nav-search-input" id="searchInput"
+            aria-label="Ingresa lo que quieras encontrar" name="search" placeholder="Buscar productos, marcas y más…"
+            maxlength="120" autocapitalize="off" autocorrect="off" spellcheck="false" autocomplete="off" value="" />
+          <button type="submit" class="nav-search-btn">
+            <div role="img" aria-label="Buscar" class="nav-icon-search"></div>
+          </button>
+        </form>
+      </div>
+    </div>
+  </header>
+</mat-card-header>

@@ -1,40 +1,23 @@
+<app-search-box></app-search-box>
+<mat-label>{{ breadcrumb }}</mat-label>
 <mat-card>
-    <h1>Bienvenido a Banco App - Registrate</h1>
-    <form [formGroup]="formSignUp">
-        <mat-form-field appearance="outline">
-            <input matInput placeholder="Ingresa tu RUT" formControlName="dni" validateDni formSignUp required>
-            <mat-error *ngIf="formSignUp.controls['dni'].hasError('required')">
-                Debes ingresar su <span>RUT</span>
-            </mat-error>
-            <mat-error
-                *ngIf="!formSignUp.controls['dni'].hasError('required') && formSignUp.controls['dni'].hasError('invalid') && formSignUp.controls['dni'].value !== ''">
-                El <span>RUT</span> ingresado no es válido
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <input matInput placeholder="Ingresa tu Nombre" formControlName="firstName" required>
-            <mat-error *ngIf="formSignUp.controls['firstName'].hasError('required')">
-                Debes ingresar su <span>nombre</span> para continuar
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <input matInput placeholder="Ingresa tu Apellido" formControlName="lastName" required>
-            <mat-error *ngIf="formSignUp.controls['lastName'].hasError('required')">
-                Debes ingresar su <span>apellido</span> para continuar
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <input matInput placeholder="Ingresa tu correo electronico" formControlName="email" required>
-            <mat-error *ngIf="formSignUp.controls['email'].hasError('required')">
-                Debes ingresar su <span>correo electronico</span> para continuar
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <input matInput placeholder="Ingresa tu contraseña" formControlName="password" required>
-            <mat-error *ngIf="formSignUp.controls['password'].hasError('required')">
-                Debes ingresar su <span>contraseña</span> para continuar
-            </mat-error>
-        </mat-form-field>
-        <button mat-button class="btn green" [disabled]="!formSignUp.valid" (click)="sendUser()">Registrate</button>
-    </form>
+  <mat-grid-list cols="2" rowHeight="1:2">
+    <mat-grid-tile>
+      <img [src]="itemDetail.picture" />
+      <br/>
+      <h2>Descripción del producto</h2>
+      <br/>
+      {{ itemDetail.description }}
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-label>
+        {{ itemDetail.condition }} - {{ itemDetail.sold_quantity }} vendidos
+      </mat-label>
+      <br/>
+      <h2>
+        $ {{ itemDetail.price.amount }}
+      </h2>
+    <br/>
+    </mat-grid-tile>
+  </mat-grid-list>
 </mat-card>
