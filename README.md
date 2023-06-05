@@ -1,12 +1,12 @@
 # Front Desafio MELI
 
 <p>Proyecto para la postulación como Desarrollador FullStack para Mercado Libre Chile</p><br/>
-<p>Este proyecto fue generado en Angular</p>
+<p>Este proyecto fue generado en Angular 14</p>
 
 ### **Funciones principales**
   1. Barra de búsqueda
   2. Muestra los primeros 4 productos de la búsqueda realizada
-  4. Muestra el detalle del producto
+  3. Muestra el detalle del producto
 
 ---
 
