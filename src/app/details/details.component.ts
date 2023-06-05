@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { UserSignUp } from 'src/utils/interfaces/user';
-import { SignUpService } from '../../utils/services/sign-up.service';
-import { sha256 } from 'js-sha256';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Item } from 'src/utils/interfaces/items';
+import { ItemsService } from 'src/utils/services/items.service';
 
 @Component({
   selector: 'app-details',
@@ -11,38 +10,26 @@ import { sha256 } from 'js-sha256';
 })
 export class DetailsComponent implements OnInit {
 
-  formSignUp: any;
+  itemDetail!: Item;
+  breadcrumb: string = ''
 
-  constructor(private formBuilder: FormBuilder, private signUpService: SignUpService) {
-    this.formSignUp = this.formBuilder.group({
-      dni: ['', [Validators.required]],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      password: [null, Validators.compose([Validators.required])]
-    });
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private itemsService: ItemsService ) {
   }
 
   ngOnInit(): void {
 
+    this.activatedRoute.url.subscribe((data) => {
+      this.breadcrumb = sessionStorage.getItem('breadcrumb') as string
+      this.getDetailItem(data[1].path)
+    })
   }
 
-  sendUser() {
-    console.log(this.formSignUp.value);
-
-    if (this.formSignUp.valid) {
-      const userData: UserSignUp = {
-        dni: this.formSignUp.value.dni,
-        firstName: this.formSignUp.value.firstName,
-        lastName: this.formSignUp.value.lastName,
-        email: this.formSignUp.value.email,
-        password: sha256(this.formSignUp.value.password)
-      }
-
-      this.signUpService.suscription(userData).subscribe((res) => {
-        console.log(res);
-      })
-    }
+  private getDetailItem(itemId: string) {
+    this.itemsService.itemDetails(itemId).subscribe((data) => {
+      this.itemDetail = data.payload.item
+    })
   }
 
 }

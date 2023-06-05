@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { UserLogin } from 'src/utils/interfaces/user';
-import { SignInService } from 'src/utils/services/sign-in.service';
-import { sha256 } from 'js-sha256';
+import { Item } from 'src/utils/interfaces/items';
+import { ItemsService } from 'src/utils/services/items.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -11,34 +10,41 @@ import { sha256 } from 'js-sha256';
 })
 export class ResultsComponent implements OnInit {
 
-  formLogin: any;
-  hide;
+  search: string = '';
+  itemsList: Array<Item> = [];
+  breadcrumb: string = ''
 
-  constructor(private formBuilder: FormBuilder, private signInService: SignInService) {
-    this.hide = true;
-    this.formLogin = this.formBuilder.group({
-      dni: ['', [Validators.required]],
-      password: [null, Validators.compose([Validators.required])]
-    });
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private itemsService: ItemsService ) {
+
    }
 
   ngOnInit(): void {
-    this.signInService.getAccess().subscribe((res) => {
-      console.log('Access success');
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.search = params['search'];
     });
+    this.getItems()
   }
 
-  signInUser() {
-    if (this.formLogin.valid) {
-      const userData: UserLogin = {
-        dni: this.formLogin.value.dni,
-        password: sha256(this.formLogin.value.password)
-      }
+  private getItems() {
+    this.itemsService.searchItems(this.search).subscribe((res) => {
+      console.log(res);
+      this.itemsList = res.payload.items.slice(0, 4)
 
-      this.signInService.signInUser(userData).subscribe((res) => {
-        console.log(res);
-      })
-    }
+      for (const category of res.payload.categories) {
+        this.breadcrumb += ` > ${category}`
+      }
+      console.log(this.breadcrumb);
+      sessionStorage.setItem('breadcrumb', this.breadcrumb);
+    })
+  }
+
+  goToDetail(itemId: string) {
+    console.log(itemId);
+    this.router.navigate([itemId], {
+      relativeTo: this.activatedRoute
+    });
   }
 
 }

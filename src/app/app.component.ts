@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AccessService } from 'src/utils/services/access.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'front-meli';
+
+  constructor(private accessService: AccessService){}
+
+  ngOnInit(): void {
+    this.accessService.getAccess().subscribe((res) => {
+      console.log('Access success');
+    });
+  }
 }
